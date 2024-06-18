@@ -1,0 +1,19 @@
+/* SearchTestForm.css */
+.modal-dialog {
+    max-width: 90%; /* Agrandir la largeur de la modal */
+    max-height: 90%; /* Agrandir la hauteur de la modal */
+  }
+  
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-body img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Ajuster la hauteur maximum de l'image */
+    object-fit: contain; /* Contenir l'image dans la modal */
+  }
+  
