@@ -6,10 +6,10 @@ const Navbar = ({ setView, handleLogout }) => {
     <nav className="navbar">
       <ul>
         <li>
-          <button onClick={() => setView('insert')}>Insert Test Form</button>
+          <button onClick={() => setView('insert')}>Insérer un Scénario</button>
         </li>
         <li>
-          <button onClick={() => setView('search')}>Search Test Form</button>
+          <button onClick={() => setView('search')}>Recherche d'un Scénario</button>
         </li>
         <li>
           <button onClick={handleLogout}>Logout</button>

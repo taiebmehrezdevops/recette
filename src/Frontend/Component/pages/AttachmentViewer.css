@@ -1,0 +1,38 @@
+/* AttachmentViewer.css */
+.modal-dialog.custom-modal {
+  max-width: 80%; /* or any size you prefer */
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+}
+/* AttachmentViewer.css */
+/* AttachmentViewer.css */
+.table-danger {
+  background-color: #f8d7da;
+}
+
+.table-success {
+  background-color: #378b4b;
+}
+
+.table-warning {
+  background-color: #fff3cd;
+}
+
+.modal-dialog.custom-modal {
+  max-width: 80%; /* or any size you prefer */
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+}
+.table thead th {
+  background-color: #3e70a3;
+  color: #0e0b0b;
+}
+.table-bordered {
+  border: 1px solid #dee2e6;
+}

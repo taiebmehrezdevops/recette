@@ -1,11 +1,11 @@
 // src/components/AttachmentViewer.js
 
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+
 
 const AttachmentViewer = ({ show, handleClose, attachmentUrl }) => {
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} dialogClassName="fullscreen-modal">
       <Modal.Header closeButton>
         <Modal.Title>Attachment</Modal.Title>
       </Modal.Header>

@@ -178,6 +178,30 @@ app.get('/api/searchTests', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+app.put('/api/updateTest/:testid', (req, res) => {
+  const { testid } = req.params;
+  const { etat, gti } = req.body;
+
+  const query = `
+    UPDATE test
+    SET etat = ?, gti = ?
+    WHERE testid = ?
+  `;
+
+  db.query(query, [etat, gti, testid], (err, result) => {
+    if (err) {
+      console.error('Error updating test details:', err);
+      return res.status(500).json({ message: 'Error updating test details' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Test not found' });
+    }
+
+    res.status(200).json({ message: 'Test details updated successfully' });
+  });
+});
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.listen(8800, () => {
   console.log("Connected to backend SQL");

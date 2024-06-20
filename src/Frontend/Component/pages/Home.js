@@ -30,14 +30,14 @@ const Home = () => {
       case 'search':
         return <SearchTestForm />;
       default:
-        return <p>Welcome! Please select an option from the navbar.</p>;
+        return <p>Bienvenue!</p>;
     }
   };
 
   return (
     <div>
-      <h2>Welcome Home, {username}!</h2>
-      <p>Your User ID: {userid}</p>
+      <h4>Bienvenue, {username}!</h4>
+     
       <Navbar setView={setView} handleLogout={handleLogout} />
       {renderContent()}
     </div>

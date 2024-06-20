@@ -1,8 +1,7 @@
-// InsertTestForm.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function InsertTestForm() {
   const { userid: paramUserid } = useParams();
@@ -20,6 +19,7 @@ function InsertTestForm() {
   const [etat, setEtat] = useState('en cours');
   const [ati, setAti] = useState('');
   const [gti, setGti] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!userid) {
@@ -58,6 +58,7 @@ function InsertTestForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('scenario', scenario);
@@ -78,66 +79,70 @@ function InsertTestForm() {
         }
       });
       setMessage(`New test inserted with ID: ${response.data.testId}`);
+      // Reset the form
+      setScenario('');
+      setResultat('');
+      setUsername('');
+      setImage(null);
+      setSelectedMenu('');
+      setSelectedSubmenu('');
+      setEtat('en cours');
+      setAti('');
+      setGti('');
     } catch (error) {
       setMessage('Error inserting new test');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h2>Insert New Test</h2>
+    <div className="container mt-4">
+      <h4>Insérer un Scénario</h4>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Menu:</label>
-          <select value={selectedMenu} onChange={handleMenuChange} required>
+        <div className="form-group">
+          <h5>Menu:</h5>
+          <select className="form-control" value={selectedMenu} onChange={handleMenuChange} required>
             <option value="">Select Menu</option>
             {menus.map(menu => (
               <option key={menu.menuid} value={menu.menuid}>{menu.menu}</option>
             ))}
           </select>
-          <label>Submenu:</label>
-          <select value={selectedSubmenu} onChange={handleSubmenuChange} required>
-            <option value="">Select Submenu</option>
+        </div>
+        <div className="form-group">
+          <h5>Sous-Menu:</h5>
+          <select className="form-control" value={selectedSubmenu} onChange={handleSubmenuChange} required>
+            <option value="">Select Sous-Menu</option>
             {submenus.map(submenu => (
               <option key={submenu.ssmenuid} value={submenu.ssmenuid}>{submenu.ssmenu}</option>
             ))}
           </select>
-        </div><br/>
-        <div>
-          <label>Scenario:</label>
-          <textarea type="text" rows="1" cols="70" value={scenario} onChange={handleScenarioChange} />
-        </div><br/>
-        <div>
-          <label>Resultat:</label>
-          <textarea rows="5" cols="90" value={resultat} onChange={handleResultatChange} required />
-        </div><br/>
-        <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={handleUsernameChange} />
-        </div><br/>
-        <div>
-          <label>Etat:</label>
-          <select value={etat} onChange={handleEtatChange} required>
+        </div>
+        <div className="form-group">
+          <h5>Scénario:</h5>
+          <textarea className="form-control" rows="1" value={scenario} onChange={handleScenarioChange} required />
+        </div>
+        <div className="form-group">
+          <h5>Résultat:</h5>
+          <textarea className="form-control" rows="5" value={resultat} onChange={handleResultatChange} required />
+        </div>
+        <div className="form-group">
+          <h5>Etat:</h5>
+          <select className="form-control" value={etat} onChange={handleEtatChange} required>
             <option value="en cours">en cours</option>
             <option value="résolu">résolu</option>
           </select>
         </div><br/>
-        <div>
-          <label>ATI:</label>
-          <input type="text" value={ati} onChange={handleAtiChange} />
+        <div className="form-group">
+          <h5>Imprime écran:</h5>
+          <input type="file" className="form-control-file" onChange={handleImageChange} required />
         </div><br/>
-        <div>
-          <label>GTI:</label>
-          <input type="text" value={gti} onChange={handleGtiChange} />
-        </div><br/>
-        <div>
-          <label>Image:</label>
-          <input type="file" onChange={handleImageChange} required />
-        </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
   );
 }
